@@ -1,0 +1,14 @@
+# Required fields
+scan_name = "" # scan name to filter by
+allowed_memory_gb = 12 # tweak as necessary
+
+# workers = 5
+# columns = ["Asset UUID", "IP Address", "Plugin ID", "Severity"]
+
+# uncomment this if you want to override the window
+#[window]
+#since = 1742898712
+#upto = 1710086402
+
+# other options include "json", "parquet"
+export_type = "csv"

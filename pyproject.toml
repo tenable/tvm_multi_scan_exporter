@@ -1,0 +1,54 @@
+[project]
+name = "tvm_multi_scan_exporter"
+version = "0.1.0"
+description = "A Python library to aggregate Scan Exports into a single export"
+authors = [
+    { name = "Tenable, Inc." },
+    { name = "Exports Team", email = "exports-integration@tenable.com" }
+]
+readme = "README.md"
+license = "MIT"
+keywords = [
+    "tenable",
+    "tenable vulnerability management",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pytenable==1.7.4",
+    "duckdb==1.2.1",
+    "SQLAlchemy==2.0.39",
+    "pyodbc==5.2.0",
+    "pyarrow==19.0.1",
+    "pandas==2.2.3",
+    "tomli==2.2.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.5"
+]
+
+[project.urls]
+"Homepage" = "https://pytenable.readthedocs.io"
+"Bug Tracker" = "https://pytenable.readthedocs.io"
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

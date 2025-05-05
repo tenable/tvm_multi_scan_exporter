@@ -1,0 +1,21 @@
+# Required fields
+scan_name = "" # scan name to filter by
+allowed_memory_gb = 12 # tweak as necessary
+
+# workers = 5
+# columns = ["Asset UUID", "IP Address", "Plugin ID", "Severity"]
+
+# uncomment this if you want to override the window
+#[window]
+#since = 1742898712
+#upto = 1710086402
+
+[export_type]
+type = "write_to_database"
+user = "your-db-username"
+host_address = "db-server-name"
+port = 1433
+database_name = "your-db-name"
+table_name = "your-table-name"
+engine = "MsSqlServer"           # Optional; defaults to MsSqlServer
+write_batch_size = 500           # Optional; defaults to 100
