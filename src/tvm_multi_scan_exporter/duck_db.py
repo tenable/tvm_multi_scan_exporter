@@ -19,7 +19,7 @@ def deduplication_query_string(config: Config, source_file: Path) -> str:
         SELECT
             {_columns_sql_string(config)}
         FROM
-            read_csv_auto("{str(source_file)}", strict_mode=false, ignore_errors=true) scans
+            read_csv_auto('{str(source_file)}',  ignore_errors=true,  all_varchar=true, sample_size=-1, strict_mode=false) scans
         WHERE
             "Vulnerability State" != 'Fixed'
         GROUP BY identifier;
@@ -63,14 +63,14 @@ def concatenation_sql_string(config: Config, source_directory_wildcard: str):
                 host AS latestHost,
                 max(host_end) AS latestHostEnd
             FROM
-                read_csv_auto("{source_directory_wildcard}", union_by_name=true, strict_mode=false, ignore_errors=true)
+                read_csv_auto("{source_directory_wildcard}", union_by_name=true, all_varchar=true, sample_size=-1)
             GROUP BY
                 host
         )
         SELECT
             scans.*
         FROM
-            read_csv_auto("{source_directory_wildcard}", union_by_name=true, strict_mode=false, ignore_errors=true) scans,
+            read_csv_auto("{source_directory_wildcard}", union_by_name=true, all_varchar=true, sample_size=-1) scans,
             latest
         WHERE
                 host = latestHost
