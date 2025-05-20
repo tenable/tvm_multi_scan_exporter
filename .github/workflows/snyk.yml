@@ -24,10 +24,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
           pip install -e .[dev]
+          pip freeze > requirements.txt
 
       - name: Snyk Scan
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: monitor --command=python3 --skip-unresolved=true
+          command: test --file=requirements.txt --command=python3 --skip-unresolved=true
