@@ -24,6 +24,20 @@ jobs:
       - name: Build package
         run: python -m build
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+          pip install -e .[dev]
+          pip freeze > requirements.txt
+
+      - name: Snyk Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test --file=requirements.txt --command=python3 --skip-unresolved=true
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.4.1
         with:
