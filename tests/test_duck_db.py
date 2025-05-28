@@ -14,6 +14,11 @@ def mock_config():
     )
 
 
+def normalize_sql(sql):
+    """Normalize SQL by removing extra spaces."""
+    return " ".join(sql.split())
+
+
 @patch("tvm_multi_scan_exporter.duck_db._columns_sql_string", return_value="ANY_VALUE(\"Column A\") AS column_a")
 def test_deduplication_query_string(mock_columns_sql, mock_config):
     source_file = Path("/tmp/source.csv")
@@ -23,12 +28,12 @@ def test_deduplication_query_string(mock_columns_sql, mock_config):
         SELECT
             ANY_VALUE("Column A") AS column_a
         FROM
-            read_csv_auto("{str(source_file)}", strict_mode=false, ignore_errors=true) scans
+            read_csv_auto('{str(source_file)}', ignore_errors=true, all_varchar=true, sample_size=-1, strict_mode=false) scans
         WHERE
             "Vulnerability State" != 'Fixed'
         GROUP BY identifier;
     """.strip()
-    assert result == expected
+    assert normalize_sql(result) == normalize_sql(expected)
 
 
 def test_concatenation_sql_string(mock_config):
@@ -41,14 +46,14 @@ def test_concatenation_sql_string(mock_config):
                 host AS latestHost,
                 max(host_end) AS latestHostEnd
             FROM
-                read_csv_auto("{source_directory_wildcard}", union_by_name=true, strict_mode=false, ignore_errors=true)
+                read_csv_auto("{source_directory_wildcard}", union_by_name=true, all_varchar=true, sample_size=-1)
             GROUP BY
                 host
         )
         SELECT
             scans.*
         FROM
-            read_csv_auto("{source_directory_wildcard}", union_by_name=true, strict_mode=false, ignore_errors=true) scans,
+            read_csv_auto("{source_directory_wildcard}", union_by_name=true, all_varchar=true, sample_size=-1) scans,
             latest
         WHERE
                 host = latestHost
