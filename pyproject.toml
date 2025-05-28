@@ -18,7 +18,6 @@ classifiers = [
     "Topic :: Software Development",
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -48,8 +47,8 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://pytenable.readthedocs.io"
-"Bug Tracker" = "https://pytenable.readthedocs.io"
+"Homepage" = "https://github.com/tenable/tvm_multi_scan_exporter/blob/main/README.md"
+"Bug Tracker" = "https://github.com/tenable/tvm_multi_scan_exporter/issues"
 
 [build-system]
 requires = ["setuptools>=61", "wheel"]
