@@ -19,7 +19,7 @@ def deduplication_query_string(config: Config, source_file: Path) -> str:
         SELECT
             {_columns_sql_string(config)}
         FROM
-            read_csv_auto('{str(source_file)}',  ignore_errors=true,  all_varchar=true, sample_size=-1, strict_mode=false) scans
+            read_csv_auto('{str(source_file)}') scans
         WHERE
             "Vulnerability State" != 'Fixed'
         GROUP BY identifier;
