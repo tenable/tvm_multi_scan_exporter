@@ -33,8 +33,10 @@ class ScansFetcher:
                 # get all the histories for the matching scans
                 histories: List[ScanHistory] = self._histories(all_matching_scans, config)
                 logging.info(f"Found {len(histories)} scan history(ies) to process.")
+                logging.info(f"Exploratory Log: Scan history count: {len(histories)}")
                 return histories
             else:
+                logging.info(f"Exploratory Log: Scan history count: 0")
                 return []
         except Exception as e:
             logging.error(f"An exception occurred while fetching scan histories: {e}")

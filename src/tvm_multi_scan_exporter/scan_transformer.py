@@ -1,5 +1,7 @@
+import csv
 import json
 import logging
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -9,6 +11,29 @@ from tvm_multi_scan_exporter.database import write_to_db
 from tvm_multi_scan_exporter.configuration import Config, Csv, Parquet, Json, WriteToDatabase
 from tvm_multi_scan_exporter.duck_db import concatenation_sql_string
 from tvm_multi_scan_exporter.util import file_size_in_mb
+
+
+def count_csv_rows(filepath):
+    """
+
+    :param filepath:
+    :return:
+    """
+    if not os.path.exists(filepath):
+        print(f"Error: The file '{filepath}' was not found.")
+        return -1
+
+    try:
+        with open(filepath, 'r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile)
+            row_count = 0
+            next(reader, None)  # Skips the header row if it exists
+            for row in reader:
+                row_count += 1
+            return row_count
+    except Exception as e:
+        print(f"An error occurred while reading the CSV file: {e}")
+        return -1
 
 
 class ScanResultTransformer:
@@ -62,6 +87,8 @@ class ScanResultTransformer:
             match config.export_type:
                 case Csv():
                     duckdb.sql(concatenation_query).write_csv(str(file_name))
+                    row_count = count_csv_rows(str(file_name))
+                    logging.info(f"Exploratory Log: Concatenated count in CSV: {row_count} file: {file_name}")
                     self._log_file_size(str(file_name))
                 case Parquet():
                     duckdb.sql(concatenation_query).write_parquet(str(file_name))

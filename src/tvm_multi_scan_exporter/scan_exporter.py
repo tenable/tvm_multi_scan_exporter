@@ -41,6 +41,8 @@ class ScanExporter:
             # stores all the futures for deduplication.
             dedup_futures: List[Future] = []
 
+            logging.info(f"Exploratory Log: Total Exports: {len(scan_histories)}")
+
             # we only start 1 thread for deduplication.
             with ThreadPoolExecutor(max_workers=1) as executor_for_deduplication:
 
