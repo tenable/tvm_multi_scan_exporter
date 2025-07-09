@@ -1,6 +1,6 @@
 [project]
 name = "tvm_multi_scan_exporter"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Python library to aggregate Scan Exports into a single export"
 authors = [
     { name = "Tenable, Inc." },
