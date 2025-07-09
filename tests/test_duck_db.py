@@ -28,7 +28,7 @@ def test_deduplication_query_string(mock_columns_sql, mock_config):
         SELECT
             ANY_VALUE("Column A") AS column_a
         FROM
-            read_csv_auto('{str(source_file)}', ignore_errors=true, all_varchar=true, sample_size=-1, strict_mode=false) scans
+            read_csv_auto('{str(source_file)}') scans
         WHERE
             "Vulnerability State" != 'Fixed'
         GROUP BY identifier;
