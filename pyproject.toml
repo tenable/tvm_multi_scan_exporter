@@ -28,7 +28,7 @@ dependencies = [
     "duckdb==1.2.1",
     "SQLAlchemy==2.0.39",
     "pyodbc==5.2.0",
-    "pyarrow==19.0.1",
+    "pyarrow==23.0.1",
     "pandas==2.2.3",
     "tomli==2.2.1",
     "future>=0.18.3",
